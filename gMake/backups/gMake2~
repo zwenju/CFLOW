@@ -1,0 +1,331 @@
+#!/bin/bash
+#2013/11/10
+#Version2
+# modified 04/14/2017
+#Author : Wenju Zhao
+
+echo "# Author : Wenju zhao " >> Makefile
+echo "# Date : " > Makefile
+echo "# `date`" >> Makefile
+
+#
+## To different kind of file_suffix and compiler_flags and compilers
+#
+file_suffix=(    ".f90" \
+		     ".f"   \
+		     ".c"   \
+		     ".cc")
+
+
+compiler_flags=(    "\$(FFLAGS) \$(INCLUDES)" \
+			"\$(FFLAGS) \$(INCLUDES)" \
+			"\$(CFLAGS) \$(INCLUDES)" \
+			"\$(CFLAGS) \$(INCLUDES)")
+
+compiler=(    "\$(FC)" \
+		  "\$(FC)" \
+		  "\$(CC)" \
+		  "\$(CXX)")
+
+file_type_num=${#file_suffix[@]}
+
+
+
+
+#
+# *************************************************************************************
+# begin to write the main information to Makefile file
+# *************************************************************************************
+#
+echo " " >> Makefile 
+echo " " >> Makefile 
+
+#
+#To set the compilers 
+#echo "include make.inc" >> Makefile 
+# the external lib informations are included in the makefile.inc file
+
+echo "loc_path=../../src" >> Makefile
+echo "loc_lib = libPaper1.a" >> Makefile 
+
+
+echo "include \$(loc_path)/makefile.inc "               >> Makefile
+
+
+
+#To set the compilers 
+
+echo "EC  = mpif90 "               >> Makefile
+echo "CC  = mpicc  " 	           >> Makefile
+echo "CXX = mpicxx "               >> Makefile
+echo "FC  = mpif90 "               >> Makefile 
+
+#
+# set the compiler flags for c/c++/fortran 
+#
+echo " " >> Makefile 
+echo "CFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas"       >> Makefile 
+echo "FFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas"       >> Makefile 
+echo "FLAGS   =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas"       >> Makefile 
+
+echo " " >> Makefile 
+echo "#CFLAGS  =  -fbounds-check -finit-local-zero  -fexternal-blas -O3"       >> Makefile 
+echo "#FFLAGS  =  -fbounds-check -finit-local-zero  -fexternal-blas -O3"       >> Makefile 
+echo "#FLAGS   =  -fbounds-check -finit-local-zero  -fexternal-blas -O3"       >> Makefile 
+
+
+
+#
+# output some blanket lines 
+#
+echo " " >> Makefile 
+echo " " >> Makefile 
+echo " " >> Makefile 
+echo " " >> Makefile 
+echo " " >> Makefile 
+echo " " >> Makefile 
+
+
+
+#
+# define the libs and includes files informations 
+#
+
+echo  "LIBS =  \$(loc_path)/\$(loc_lib) \$(makefile_inc_libs)"     >> Makefile 
+echo  "INCLUDES = -I\$(loc_path) \$(makefile_inc_includes)"        >> Makefile
+echo " " >> Makefile 
+echo " " >> Makefile 
+
+
+
+echo "# The name of the exe_filecutable file" >> Makefile
+echo "EXE = zz " >> Makefile 
+echo " " >> Makefile
+
+echo "# give a name of static libarary " >> Makefile
+echo "STATIC_LIB = libXXX.a" >> Makefile 
+echo " " >> Makefile
+
+
+echo "# Installing directory  " >> Makefile 
+echo "PREFIX = \$(HOME)/Linux" >> Makefile 
+
+### to link the object_fileect files
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# To link the object_fileect files" >> Makefile 
+echo " " >> Makefile 
+echo " " >> Makefile 
+
+
+
+
+
+
+
+#
+# set the main files, Here we assume the main function are named using _main_ or _test_
+#
+MAIN_FILES_ARRAY=()
+MAIN_OBJS_ARRAY=()
+MAIN_EXES_ARRAY=()
+MAIN_OBJS=""
+MAIN_EXES=""
+
+local main_iter=0
+for((i = 0; i < file_type_num; i++))
+do
+    TYPE=`ls  *test*${file_suffix[i]} *main*${file_suffix[i]}` ;
+
+    for FILE in $TYPE 
+    do
+
+        echo $FILE 
+	object_file=$(echo $FILE | sed "s/${file_suffix[i]}/.o  /g") 
+	exe_file=$(echo $FILE | sed "s/${file_suffix[i]}/.exe /g") 
+
+	main_iter=$((main_iter+1))
+	
+        MAIN_OBJS+=$object_file
+	MAIN_EXES+=$exe_file      
+        
+        MAIN_FILES_ARRAY[$main_iter]=$FILE 
+	MAIN_OBJS_ARRAY[$main_iter]=$object_file
+	MAIN_EXES_ARRAY[$main_iter]=$exe_file
+
+    done 
+    MAIN_OBJS+=" \/ \n	"      
+    MAIN_EXES+=" "      
+done
+
+
+
+
+MAIN_OBJS=$(echo -e $MAIN_OBJS | sed "s/\/\ //g")
+echo -e "MAIN_OBJS = $MAIN_OBJS" >> Makefile
+echo -e "\n\n" >> Makefile
+
+
+#
+# set the object_fileect files excluding the *_test.o, Here we assume that _test files are main functions 
+#
+
+OBJS_FILES_ARRAY=()
+OBJS_ARRAY=()
+OBJS=""
+object_file_iter=0
+
+for((i = 0; i < file_type_num; i++))
+do
+    TYPE=`ls *${file_suffix[i]} | grep -v "test"| grep -v "main"  `;
+
+    for FILE in $TYPE 
+    do 
+        echo $FILE 
+	object_file=$(echo $FILE | sed "s/${file_suffix[i]}/.o /g") 
+	
+        object_file_iter=$((object_file_iter+1))
+
+	OBJS+=$object_file
+        OBJS_ARRAY[object_file_iter]=$object_file
+        OBJS_FILES_ARRAY[object_file_iter]=$FILE
+
+    done 
+    OBJS+=" \/ \n"      
+done
+
+OBJS=$(echo -e $OBJS | sed "s/\/\ //g")
+
+echo -e "OBJS = $OBJS" >> Makefile
+echo -e "\n\n" >> Makefile
+
+
+
+#
+#  exe_filecutable files 
+#
+if [ $main_iter -eq 0 ]
+then
+
+    echo "All : zz " >> Makefile 
+    echo "zz : \$(OBJS)" >> Makefile 
+    echo "	\$(EC) \$(FLAGS) -o zz \$(OBJS)  \$(INCLUDES)  \$(LIB_PATH) \$(LIBS)" >> Makefile
+
+elif [  $main_iter -eq 1 ] 
+then 
+    echo "All : zz " >> Makefile 
+    echo "zz : ${MAIN_OBJS_ARRAY[iter]}  \$(OBJS)" >> Makefile 
+    echo "	\$(EC) \$(FLAGS) -o zz ${MAIN_OBJS_ARRAY[iter]}  \$(OBJS)  \$(INCLUDES)  \$(LIB_PATH) \$(LIBS)" >> Makefile
+
+else 
+
+    echo "All : $MAIN_EXES" >> Makefile 
+    echo " " >> Makefile 
+
+    for((iter = 1; iter<=main_iter; iter++))
+    do 
+	echo "${MAIN_EXES_ARRAY[iter]} : ${MAIN_OBJS_ARRAY[iter]}  \$(OBJS)" >> Makefile 
+	echo "	\$(EC) \$(FLAGS) -o ${MAIN_EXES_ARRAY[iter]}  ${MAIN_OBJS_ARRAY[iter]}  \$(OBJS)  \$(INCLUDES)  \$(LIB_PATH) \$(LIBS)" >> Makefile
+	echo -e "\n " >> Makefile 
+	echo -e "\n " >> Makefile 
+
+    done
+
+fi 
+
+#
+### to compile the source files
+#
+echo " " >> Makefile 
+echo "# " >> Makefile
+echo "# *********************************************************** " >> Makefile
+echo "# To compile the source files " >> Makefile
+echo "# " >> Makefile
+echo " " >> Makefile 
+
+for((i = 0; i < file_type_num; i++))
+do
+    TYPE=`ls  *${file_suffix[i]}`;
+    for FILE in $TYPE 
+    do 
+	object_file=$(echo $FILE | sed "s/${file_suffix[i]}/.o /g") 
+	echo "$object_file: $FILE " >>Makefile
+	echo "	${compiler[i]} ${compiler_flags[i]} -c  $FILE" >>Makefile 
+	echo " " >> Makefile 
+    done 
+done
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# make run " >> Makefile
+echo " " >> Makefile 
+
+echo "run : " >> Makefile
+echo "	./\$(EXE)" >> Makefile 
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# make ar " >> Makefile
+echo " " >> Makefile 
+
+echo "ar : " >> Makefile 
+echo "	ar rcs \$(STATIC_LIB) \$(OBJS)" >> Makefile
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# make gdb " >> Makefile
+echo " " >> Makefile 
+
+echo "ulimit : "     >> Makefile
+echo "	ulimit -c unlimted " >> Makefile 
+echo " " >> Makefile 
+echo "gdb : "        >> Makefile
+echo "	gdb ./\$(EXE) core.* " >> Makefile 
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make gprof " >> Makefile
+echo " " >> Makefile 
+
+echo "gprof :" >> Makefile
+echo "	gprof -l -b ./\$(EXE) gmon.prof" >> Makefile 
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make  ctags" >> Makefile
+echo " " >> Makefile 
+echo "ctags : "   >> Makefile
+echo "	ctags -R "  >> Makefile 
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make  install" >> Makefile
+echo " " >> Makefile 
+echo "install : " >> Makefile
+echo "	install \$(STATIC_LIB) \$(PREFIX)/lib "  >> Makefile 
+
+
+
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make  clean" >> Makefile
+echo " " >> Makefile 
+
+echo "clean : " >> Makefile
+echo "	rm *.swp  core.* *.mod gmon.out" >> Makefile
+
+echo "cleanall : " >> Makefile
+echo "	rm \$(OBJS) .*.swp *.swo core.* gmon.out \$(STATIC_LIB) *.mod   zz " >> Makefile
+
+
+# cat Makefile 
+
+echo "Carry Out Successfully !"
+exit
+
+

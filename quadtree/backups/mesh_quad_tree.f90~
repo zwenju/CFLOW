@@ -1,0 +1,119 @@
+Module Mesh_QuadTree_H 
+type mesh_quadtree_type  
+
+
+
+
+!!
+!! (x1,y2)----------------(x2,y2)
+!! |     3     |     4       |
+!! | northwest | northeast   |
+!! -------------------------- 
+!! |     1     |     2       |
+!! | southwest | southeast   |
+!! (x1,y1)----------------(x2,y1)
+!!
+!!
+!! XY = [x1, x2]
+!!      [y1, y2]     
+!!
+!!
+real(kind=8) :: XY(2,2)
+real(kind=8) :: SubElementNum
+real(kind=8),dimension(:), pointer :: SubElementList
+
+!!
+!! ---------------------------
+!! |     3     |     4       |
+!! | northwest | northeast   |
+!! -------------------------- 
+!! |     1     |     2       |
+!! | southwest | southeast   |
+!! ---------------------------
+!!
+type (mesh_quad_tree), pointer :: northwest => null()
+type (mesh_quad_tree), pointer :: northeast => null()
+type (mesh_quad_tree), pointer :: southwest => null()
+type (mesh_quad_tree), pointer :: southeast => null()
+
+
+end mesh_quadtree_type 
+
+end Mesh_QuadTree_H 
+
+
+
+
+
+
+subroutine subdivide (  quadtree  )
+implicit none
+type (mesh_quadtree_type) :: quadtree
+real(kind=8) :: x1, y1, x2, y2, xc, yc 
+
+allocate ( quadtree % southwest )
+allocate ( quadtree % southeast )
+allocate ( quadtree % northwest )
+allocate ( quadtree % northeast )
+
+!!
+!! (x1,y2)-----(x12,y22)-------(x2,y2)
+!! |     3       |      4        |
+!! | northwest   | northeast     |
+!! (x11,y12)---(xc,yc)--------(x22,y12)
+!! |     2       |     2         |
+!! | southwest   | southeast     |
+!! (x1,y1)-----(x12, y11)------(x2,y1)
+!!
+
+
+!!
+!! the XY is stored for left bottom to right top 
+!!--------------
+!!| nw ----  n  ----- ns 
+!!| |        |        |
+!!  |        |        |
+!!| w -------c ------ e 
+!!| |        |        |
+!!| |        |        |
+!!| sw ------s ------ se 
+!!--------------
+ 
+x1 = quadtree % XY(1,1)
+y1 = quadtree % XY(2,1)
+x2 = quadtree % XY(1,2)
+y2 = quadtree % XY(2,2) 
+
+xc = (x1 + x2) / 2.0d0 
+yc = (y1 + y2) / 2.0d0 
+
+ 
+!! children 1 
+quadtree % southwest % XY(:,1) = [x1, y1]
+quadtree % southwest % XY(:,2) = [xc, yc] 
+
+!! children 2 
+quadtree % southeast % XY(:,1) = [xc, y1]
+quadtree % southeast % XY(:,2) = [x2, yc]
+
+!! children 3 
+quadtree % northwest % XY(:,1) = [x1, yc]
+quadtree % northwest % XY(:,2) = [xc, y2]
+
+!! children 4 
+quadtree % northeast % XY(:,1) = [xc, yc]
+quadtree % northeast % XY(:,2) = [x2, y2]
+
+return 
+end subroutine 
+
+
+
+
+
+
+
+
+
+
+

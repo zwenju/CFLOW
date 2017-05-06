@@ -1,0 +1,221 @@
+#!/bin/bash
+#2013/11/10
+#Version2
+# modified 04/14/2017
+#Author : Wenju Zhao
+
+echo "# Author : Wenju zhao " >> Makefile
+echo "# Date : " > Makefile
+echo "# `date`" >> Makefile
+
+## To different kind of suffix and flags and compilers
+suffix=(".f90" ".f" ".c" ".cc")
+flags=("\$(FFLAGS) \$(INCLUDES)" "\$(FFLAGS) \$(INCLUDES)" "\$(CFLAGS) \$(INCLUDES)" "\$(CFLAGS) \$(INCLUDES)")
+compiler=("\$(FC)" "\$(FC)" "\$(CC)" "\$(CXX)")
+num=${#suffix[@]}
+
+echo " " >> Makefile 
+echo " " >> Makefile 
+
+## To set the compilers 
+#echo "include make.inc" >> Makefile 
+echo "loc_path=../../src" >> Makefile
+echo "loc_lib = libPaper1.a" >> Makefile 
+
+
+echo "include \$(loc_path)/makefile.inc "               >> Makefile
+
+echo "EC  = mpif90 "               >> Makefile
+echo "CC  = mpicc  " 	           >> Makefile
+echo "CXX = mpicxx "               >> Makefile
+echo "FC  = mpif90 "               >> Makefile 
+
+echo " " >> Makefile 
+echo "CFLAGS  =  -fbounds-check -Wall -Wextra -finit-local-zero  -fexternal-blas"       >> Makefile 
+echo "FFLAGS  =  -fbounds-check -Wall -Wextra -finit-local-zero  -fexternal-blas"       >> Makefile 
+echo "FLAGS   =  -fbounds-check -Wall -Wextra -finit-local-zero  -fexternal-blas"       >> Makefile 
+echo " " >> Makefile 
+echo "#CFLAGS = -Wall -g -pg -O3" >> Makefile 
+echo "#FFLAGS = -Wall -g -pg -O3" >> Makefile 
+echo "#FLAGS  = -Wall -g -pg -O3" >> Makefile 
+
+
+
+echo " " >> Makefile 
+echo " " >> Makefile 
+ 
+
+
+
+
+echo " " >> Makefile 
+echo " " >> Makefile 
+
+echo " " >> Makefile 
+
+
+echo " " >> Makefile 
+echo  "LIBS =  \$(loc_path)/\$(loc_lib) \$(makefile_inc_libs)"     >> Makefile 
+echo  "INCLUDES = -I\$(loc_path) \$(makefile_inc_includes)"        >> Makefile
+echo " " >> Makefile 
+echo " " >> Makefile 
+
+
+
+
+
+echo "# The name of the executable file" >> Makefile
+echo "EXE = zz " >> Makefile 
+echo " " >> Makefile
+echo "# give a name of static libarary " >> Makefile
+echo "STATIC_LIB = libXXX.a" >> Makefile 
+echo " " >> Makefile
+echo "# Installing directory  " >> Makefile 
+echo "PREFIX = \$(HOME)/Linux" >> Makefile 
+
+### to link the object files
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# To link the object files" >> Makefile 
+echo " " >> Makefile 
+
+echo "All : \$(EXE)" >> Makefile 
+echo " " >> Makefile 
+
+
+
+
+
+
+
+#
+#
+#
+
+
+
+
+
+
+
+
+
+
+
+
+#
+# set the object files excluding the *_test.o, Here we assume that _test files are main functions 
+#
+
+OBJS=""
+for((i = 0; i < num; i++))
+do
+TYPE=`ls  *${suffix[i]}  --ignore={"*_test*"}`;
+for FILE in $TYPE 
+do 
+obj=$(echo $FILE | sed "s/${suffix[i]}/.o /g") 
+OBJS+=$obj
+done 
+OBJS+=" \/ \n     "      
+done
+
+OBJS=$(echo -e $OBJS | sed "s/\/\ //g")
+echo -e "OBJS = $OBJS" >> Makefile
+echo -e "\n\n" >> Makefile
+
+echo "\$(EXE) : \$(OBJS)" >> Makefile 
+echo "	\$(EC) \$(FLAGS) -o \$(EXE) \$(OBJS) \$(INCLUDES) \$(LIB_PATH) \$(LIBS)" >> Makefile
+echo -e "\n " >> Makefile 
+
+### to compile the source files
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# To compile the source files " >> Makefile
+echo " " >> Makefile 
+
+for((i = 0; i < num; i++))
+do
+TYPE=`ls  *${suffix[i]}`;
+for FILE in $TYPE 
+do 
+obj=$(echo $FILE | sed "s/${suffix[i]}/.o /g") 
+echo "$obj: $FILE " >>Makefile
+echo "	${compiler[i]} ${flags[i]} -c  $FILE" >>Makefile 
+echo " " >> Makefile 
+done 
+done
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# make run " >> Makefile
+echo " " >> Makefile 
+
+echo "run : " >> Makefile
+echo "	./\$(EXE)" >> Makefile 
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# make ar " >> Makefile
+echo " " >> Makefile 
+
+echo "ar : " >> Makefile 
+echo "	ar rcs \$(STATIC_LIB) \$(OBJS)" >> Makefile
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "# make gdb " >> Makefile
+echo " " >> Makefile 
+
+echo "ulimit : "     >> Makefile
+echo "	ulimit -c unlimted " >> Makefile 
+echo " " >> Makefile 
+echo "gdb : "        >> Makefile
+echo "	gdb ./\$(EXE) core.* " >> Makefile 
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make gprof " >> Makefile
+echo " " >> Makefile 
+
+echo "gprof :" >> Makefile
+echo "	gprof -l -b ./\$(EXE) gmon.prof" >> Makefile 
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make  ctags" >> Makefile
+echo " " >> Makefile 
+echo "ctags : "   >> Makefile
+echo "	ctags -R "  >> Makefile 
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make  install" >> Makefile
+echo " " >> Makefile 
+echo "install : " >> Makefile
+echo "	install \$(STATIC_LIB) \$(PREFIX)/lib "  >> Makefile 
+	
+
+
+
+
+echo " " >> Makefile 
+echo "# ------------------------------------------------ " >> Makefile
+echo "#make  clean" >> Makefile
+echo " " >> Makefile 
+
+echo "clean : " >> Makefile
+echo "	rm *.swp  core.* *.mod gmon.out" >> Makefile
+
+echo "cleanall : " >> Makefile
+echo "	rm \$(OBJS) .*.swp *.swo core.* gmon.out \$(STATIC_LIB) *.mod   zz " >> Makefile
+
+
+# cat Makefile 
+
+echo "Carry Out Successfully !"
+exit
+
+

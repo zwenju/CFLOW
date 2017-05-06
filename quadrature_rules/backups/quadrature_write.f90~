@@ -1,0 +1,41 @@
+subroutine quadrature_write ( quadrature )
+use Quadrature_Rule_Type_H
+implicit none
+
+type (quadrature_rule_type) :: quadrature 
+integer (kind=4) :: I 
+
+
+if (allocated (ref_quad_points_1d)) then 
+
+do I = 1, quadrature% quad_num_1d
+
+write (*,*) I, "ref :", quadrature%ref_quad_points_1d(I),  quadrature%ref_quad_weights_1d(I), &
+               "phy :", quadrature%phy_quad_points_1d(I),  quadrature%phy_quad_weights_1d(I)
+
+enddo 
+
+
+elseif (allocated (ref_quad_points_2d)) then 
+
+do I = 1, quadrature% quad_num_2d
+
+write (*,*) I, "ref :", quadrature%ref_quad_points_2d(:, I),  quadrature%ref_quad_weights_2d(I), &
+               "phy :", quadrature%phy_quad_points_2d(:, I),  quadrature%phy_quad_weights_2d(I)
+
+enddo 
+
+elseif (allocated (ref_quad_points_3d)) then 
+
+do I = 1, quadrature% quad_num_3d
+
+write (*,*) I, "ref :", quadrature%ref_quad_points_3d(:, I),  quadrature%ref_quad_weights_3d(I), &
+               "phy :", quadrature%phy_quad_points_3d(:, I),  quadrature%phy_quad_weights_3d(I)
+
+enddo 
+
+endif 
+
+
+return 
+end subroutine 

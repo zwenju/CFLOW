@@ -1,0 +1,83 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC  = mpicc  $/;"	m
+CFLAGS	Makefile	/^CFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+CXX	Makefile	/^CXX = mpicxx $/;"	m
+DimNum	Mesh_Type_H.f90	/^integer(kind=4) :: DimNum$/;"	k	type:mesh_type
+EC	Makefile	/^EC  = mpif90 $/;"	m
+EXE	Makefile	/^EXE = zz $/;"	m
+EdgeBdryList	Mesh_Type_H.f90	/^integer(kind=4),allocatable :: EdgeBdryList(/;"	k	type:mesh_type
+EdgeList	Mesh_Type_H.f90	/^integer(kind=4),allocatable :: EdgeList /;"	k	type:mesh_type
+EdgeNum	Mesh_Type_H.f90	/^integer(kind=4) :: EdgeNum /;"	k	type:mesh_type
+ElementList	Mesh_Type_H.f90	/^integer(kind=4),allocatable :: ElementList(/;"	k	type:mesh_type
+ElementList	triangle_showme.py	/^ElementList = np.loadtxt(element_file)$/;"	v
+ElementNum	Mesh_Type_H.f90	/^integer(kind=4) :: ElementNum$/;"	k	type:mesh_type
+FC	Makefile	/^FC  = mpif90 $/;"	m
+FFLAGS	Makefile	/^FFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+FLAGS	Makefile	/^FLAGS   =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+FaceList	Mesh_Type_H.f90	/^integer (kind=4),allocatable  :: FaceList(/;"	k	type:mesh_type
+FaceNum	Mesh_Type_H.f90	/^integer(kind=4) :: FaceNum$/;"	k	type:mesh_type
+INCLUDES	Makefile	/^INCLUDES = -I$(loc_include_path) $(makefile_inc_includes)$/;"	m
+I_String	triangle_test.f90	/^  character(len = 10) :: I_String /;"	v	program:main
+LIBS	Makefile	/^LIBS    =  -L$(loc_lib_path)     $(loc_lib) $(makefile_inc_libs)$/;"	m
+MAIN_OBJS	Makefile	/^MAIN_OBJS = triangle_test.o \\$/;"	m
+Mesh	triangle_test.f90	/^  type(mesh_type) :: Mesh(/;"	v	program:main
+Mesh_Type_H	Mesh_Type_H.f90	/^module Mesh_Type_H /;"	m
+NodeBdryList	Mesh_Type_H.f90	/^integer(kind=4),allocatable :: NodeBdryList(/;"	k	type:mesh_type
+NodeList	Mesh_Type_H.f90	/^real(kind=8),allocatable    :: NodeList(/;"	k	type:mesh_type
+NodeList	triangle_showme.py	/^NodeList    = np.loadtxt(node_file)$/;"	v
+NodeNum	Mesh_Type_H.f90	/^integer(kind=4) :: NodeNum$/;"	k	type:mesh_type
+OBJS	Makefile	/^OBJS = Mesh_Type_H.o triangle_build_edgelist_info.o triangle_read_mesh.o triangle_save_mesh.o triangle_save_mesh_py.o triangle_uniform_refinement.o triangle_write_mesh.o \\$/;"	m
+PREFIX	Makefile	/^PREFIX = $(HOME)\/Linux$/;"	m
+RegionDimension	Mesh_Type_H.f90	/^integer(kind=4) :: RegionDimension /;"	k	type:mesh_type
+RegionHolesNum	Mesh_Type_H.f90	/^integer(kind=4) :: RegionHolesNum /;"	k	type:mesh_type
+STATIC_LIB	Makefile	/^STATIC_LIB = libXXX.a$/;"	m
+VertexNum	Mesh_Type_H.f90	/^integer(kind=4) :: VertexNum$/;"	k	type:mesh_type
+acommand_line_args	triangle_showme.py	/^acommand_line_args = str(sys.argv[1])$/;"	v
+ax	triangle_showme.py	/^ax = fig.add_subplot (111)$/;"	v
+element_file	triangle_showme.py	/^element_file = mesh_file_name + ".ele"$/;"	v
+fig	triangle_showme.py	/^fig = plt.figure(1) $/;"	v
+fig	triangle_showme.py	/^fig = plt.figure(2) $/;"	v
+fig_x_axis_size_inches	triangle_showme.py	/^fig_x_axis_size_inches = 2.2  * 10 $/;"	v
+fig_y_axis_size_inches	triangle_showme.py	/^fig_y_axis_size_inches = 0.41 * 10 $/;"	v
+file_name	triangle_test.f90	/^  character(len=200) :: file_name /;"	v	program:main
+iMesh	triangle_test.f90	/^  integer(kind=4) :: iMesh /;"	v	program:main
+indx	triangle_showme.py	/^    indx = triangles[i, 0:3] $/;"	v
+loc_include_path	Makefile	/^loc_include_path=$(loc_path)\/include$/;"	m
+loc_lib	Makefile	/^loc_lib = $/;"	m
+loc_lib_path	Makefile	/^loc_lib_path=$(loc_path)\/lib$/;"	m
+loc_path	Makefile	/^loc_path=..$/;"	m
+main	triangle_test.f90	/^program main$/;"	p
+math	triangle_showme.py	/^import math $/;"	i
+matplotlib	triangle_showme.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	triangle_showme.py	/^import matplotlib.tri as tri $/;"	i
+mesh_file_name	triangle_showme.py	/^mesh_file_name = acommand_line_args $/;"	v
+mesh_type	Mesh_Type_H.f90	/^type  mesh_type$/;"	t	module:Mesh_Type_H
+node_file	triangle_showme.py	/^node_file = mesh_file_name + ".node"$/;"	v
+np	triangle_showme.py	/^import numpy as np$/;"	i
+os	triangle_showme.py	/^import os $/;"	i
+plt	triangle_showme.py	/^import matplotlib.pyplot as plt$/;"	i
+sys	triangle_showme.py	/^import sys$/;"	i
+tri	triangle_showme.py	/^import matplotlib.tri as tri $/;"	i
+triangle_build_edgelist_info	triangle_build_edgelist_info.f90	/^subroutine triangle_build_edgelist_info /;"	s
+triangle_read_mesh	triangle_read_mesh.f90	/^subroutine triangle_read_mesh /;"	s
+triangle_save_mesh	triangle_save_mesh.f90	/^subroutine triangle_save_mesh /;"	s
+triangle_save_mesh_py	triangle_save_mesh_py.f90	/^subroutine triangle_save_mesh_py /;"	s
+triangle_uniform_refinement	triangle_uniform_refinement.f90	/^subroutine triangle_uniform_refinement /;"	s
+triangle_write_mesh	triangle_write_mesh.f90	/^subroutine triangle_write_mesh /;"	s
+triangles	triangle_showme.py	/^triangles  = triangles.astype(int)$/;"	v
+triangles	triangle_showme.py	/^triangles = np.concatenate ( (triangles1, triangles2), axis=0 ) $/;"	v
+triangles1	triangle_showme.py	/^triangles1 = ElementList [:, 1:4] - 1$/;"	v
+triangles1	triangle_showme.py	/^triangles1 = triangles1.astype(int)$/;"	v
+triangles2	triangle_showme.py	/^triangles2 = ElementList [:, 4:7] - 1$/;"	v
+triangles2	triangle_showme.py	/^triangles2 = triangles2.astype(int)$/;"	v
+triangulator_generate_cylinder_poly	triangle_generate_cylinder_poly.m	/^function triangulator_generate_cylinder_poly$/;"	f
+x	triangle_showme.py	/^x = NodeList [:, 1] $/;"	v
+xc	triangle_showme.py	/^    xc = np.sum( x[ indx ] ) \/ 3.0 $/;"	v
+xy_label	triangle_showme.py	/^xy_label = NodeList [:,3].astype(int)$/;"	v
+y	triangle_showme.py	/^y = NodeList [:, 2]  $/;"	v
+yc	triangle_showme.py	/^    yc = np.sum( y[ indx ] ) \/ 3.0 $/;"	v

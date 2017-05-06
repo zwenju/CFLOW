@@ -1,0 +1,283 @@
+Module Mesh_QuadTree_H 
+
+
+
+
+  type mesh_quadtree_type  
+     !!
+     !! (x1,y2)----------------(x2,y2)
+     !! |     3     |     4       |
+     !! | northwest | northeast   |
+     !! -------------------------- 
+     !! |     1     |     2       |
+     !! | southwest | southeast   |
+     !! (x1,y1)----------------(x2,y1)
+     !!
+     !!
+     !! XY = [x1, x2]
+     !!      [y1, y2]     
+     !!
+     !!
+     real(kind=8) :: XY(2,2)
+     !!real(kind=8) :: SubElementNum
+     !!real(kind=8),dimension(:), pointer :: SubElementList
+
+     !!
+     !! ---------------------------
+     !! |     3     |     4       |
+     !! | northwest | northeast   |
+     !! -------------------------- 
+     !! |     1     |     2       |
+     !! | southwest | southeast   |
+     !! ---------------------------
+     !!
+     type (mesh_quadtree_type), pointer :: southwest => null()
+     type (mesh_quadtree_type), pointer :: southeast => null()
+     type (mesh_quadtree_type), pointer :: northwest => null()
+     type (mesh_quadtree_type), pointer :: northeast => null()
+
+     integer (kind=4) :: num  
+     logical :: marker = .false. 
+     type (mesh_quadtree_type),pointer :: level_linker => null() 
+
+  end type  mesh_quadtree_type
+
+
+  type (mesh_quadtree_type), pointer :: mesh_quadtree_root 
+
+
+
+
+
+
+end module Mesh_QuadTree_H
+
+
+
+
+
+
+subroutine subdivide (  quadtree  )
+  use Mesh_QuadTree_H
+  implicit none
+  type (mesh_quadtree_type) :: quadtree
+  real(kind=8) :: x1, y1, x2, y2, xc, yc 
+
+
+  allocate ( quadtree % southwest )
+  allocate ( quadtree % southeast )
+  allocate ( quadtree % northwest )
+  allocate ( quadtree % northeast )
+
+  !!
+  !! (x1,y2)-----(x12,y22)-------(x2,y2)
+  !! |     3       |      4        |
+  !! | northwest   | northeast     |
+  !! (x11,y12)---(xc,yc)--------(x22,y12)
+  !! |     2       |     2         |
+  !! | southwest   | southeast     |
+  !! (x1,y1)-----(x12, y11)------(x2,y1)
+  !!
+
+
+  !!
+  !! the XY is stored for left bottom to right top 
+  !!--------------
+  !!| nw ----  n  ----- ns 
+  !!| |        |        |
+  !!  |        |        |
+  !!| w -------c ------ e 
+  !!| |        |        |
+  !!| |        |        |
+  !!| sw ------s ------ se 
+  !!--------------
+
+  x1 = quadtree % XY(1,1)
+  y1 = quadtree % XY(2,1)
+  x2 = quadtree % XY(1,2)
+  y2 = quadtree % XY(2,2) 
+
+  xc = (x1 + x2) / 2.0d0 
+  yc = (y1 + y2) / 2.0d0 
+
+
+  !! children 1 
+  quadtree % southwest % XY(:,1) = [x1, y1]
+  quadtree % southwest % XY(:,2) = [xc, yc] 
+  quadtree % southwest % level_linker =>  quadtree % southeast 
+  quadtree % southwest % num = 1 
+  write (*,*)  quadtree % southwest % XY 
+
+  !! children 2 
+  quadtree % southeast % XY(:,1) = [xc, y1]
+  quadtree % southeast % XY(:,2) = [x2, yc]
+  quadtree % southeast % level_linker =>  quadtree % northwest 
+  quadtree % southeast % num = 2 
+  write (*,*)  quadtree % southeast % XY 
+
+  !! children 3 
+  quadtree % northwest % XY(:,1) = [x1, yc]
+  quadtree % northwest % XY(:,2) = [xc, y2]
+  quadtree % northwest % level_linker =>  quadtree % northeast  
+  quadtree % northwest % num = 3
+  write (*,*)  quadtree % northwest % XY 
+
+  !! children 4 
+  quadtree % northeast % XY(:,1) = [xc, yc]
+  quadtree % northeast % XY(:,2) = [x2, y2]
+  nullify(quadtree % northeast % level_linker)
+  quadtree % northeast % num = 4
+  write (*,*)  quadtree % northeast % XY 
+
+
+
+  return 
+end subroutine subdivide
+
+
+
+
+subroutine mesh_quadtree_write ( quadtree )
+  use Mesh_QuadTree_H
+  implicit none
+  type (mesh_quadtree_type), target :: quadtree 
+  type (mesh_quadtree_type), pointer :: quadtree_ptr, quadtree_root
+  integer (kind=4) :: icount 
+
+  quadtree_ptr => quadtree 
+
+  icount = 0 
+
+  quadtree_ptr => quadtree  
+  do
+
+     if ( associated(quadtree_ptr % southwest) ) then 
+        icount = icount + 1
+        quadtree_ptr => quadtree_ptr % southwest 
+        quadtree_root => quadtree_ptr  
+        write (*,*) " southwest icount = ", icount 
+
+     else if ( .not. associated(quadtree_ptr % southwest) ) then 
+        exit 
+
+     endif
+
+  enddo
+
+  icount = 0 
+  quadtree_ptr  => quadtree_root 
+  do   
+
+     if ( associated(quadtree_ptr) ) then 
+        icount = icount + 1
+        write (*,*) " icount = ", icount 
+        write (*,*) "count XY 1 = ", icount, quadtree_ptr % XY 
+
+        quadtree_ptr => quadtree_ptr % level_linker
+
+        write (*,*) "associated quadtree_ptr ", associated(quadtree_ptr)
+     else  
+
+        write (*,*) " loop end "
+
+        exit 
+
+     endif
+
+  enddo
+
+
+
+
+
+
+
+  return 
+end subroutine mesh_quadtree_write
+
+
+
+
+
+
+subroutine mesh_quadtree_level_refine ( Level, quadtree )
+use Mesh_QuadTree_H 
+implicit none
+integer (kind=4) :: Level 
+type (mesh_quadtree_type),target :: quadtree 
+type (mesh_quadtree_type), pointer  :: quadtree_ptr
+type (mesh_quadtree_type), pointer  :: quadtree_ptr_1 
+integer (kind=4) :: iLevel, icount 
+
+
+
+quadtree_ptr => quadtree 
+
+
+call subdivide ( quadtree_ptr )
+
+
+icount = 0 
+do iLevel = 2, Level 
+
+
+quadtree_ptr   => quadtree_ptr%southwest 
+quadtree_ptr_1 => quadtree_ptr 
+
+
+do   
+
+icount = icount + 1
+
+call subdivide ( quadtree_ptr_1 )
+quadtree_ptr_1 => quadtree_ptr_1%level_linker 
+if ( .not. associated ( quadtree_ptr_1) ) exit
+
+enddo 
+
+
+
+
+
+
+enddo  
+
+
+
+
+
+
+
+
+
+return 
+end subroutine 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

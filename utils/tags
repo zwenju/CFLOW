@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC  = mpicc  $/;"	m
+CFLAGS	Makefile	/^CFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+CXX	Makefile	/^CXX = mpicxx $/;"	m
+EC	Makefile	/^EC  = mpif90 $/;"	m
+EXE	Makefile	/^EXE = zz $/;"	m
+FC	Makefile	/^FC  = mpif90 $/;"	m
+FFLAGS	Makefile	/^FFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+FLAGS	Makefile	/^FLAGS   =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+INCLUDES	Makefile	/^INCLUDES = -I$(loc_include_path) $(makefile_inc_includes)$/;"	m
+LIBS	Makefile	/^LIBS    =  -L$(loc_lib_path)     $(loc_lib) $(makefile_inc_libs)$/;"	m
+MAIN_OBJS	Makefile	/^MAIN_OBJS = memory_check_r8_test.o \\$/;"	m
+OBJS	Makefile	/^OBJS = memory_check_r8.o \\$/;"	m
+PREFIX	Makefile	/^PREFIX = $(HOME)\/Linux$/;"	m
+STATIC_LIB	Makefile	/^STATIC_LIB = libXXX.a$/;"	m
+loc_include_path	Makefile	/^loc_include_path=$(loc_path)\/include$/;"	m
+loc_lib	Makefile	/^loc_lib = $/;"	m
+loc_lib_path	Makefile	/^loc_lib_path=$(loc_path)\/lib$/;"	m
+loc_path	Makefile	/^loc_path=..$/;"	m
+memory_check_r8	memory_check_r8.f90	/^subroutine  memory_check_r8(/;"	s
+memory_check_r8_test	memory_check_r8_test.f90	/^program memory_check_r8_test$/;"	p
