@@ -1,0 +1,27 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "g++ build and debug active file",  // 配置名称，将会在启动配置的下拉菜单中显示
+            "type": "cppdbg",
+            "request": "launch",  // 请求配置类型，可以为launch（启动）或attach（附加）
+            //"program": "${fileDirname}/${fileBasenameNoExtension}",  //将要进行调试的程序的路径，与 makefile 中的 main 一致
+            "program" : "${fileDirname}/zmain_sso_gradient_ex1.exe", 
+            "args": [],
+            "stopAtEntry": true,  // 设为true时程序将暂停在程序入口处
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            //"externalConsole": true, // 调试时是否显示控制台窗口，必须为true显示控制台，才能输入，交互
+            "externalConsole": false, // 调试时是否显示控制台窗口，必须为true显示控制台，才能输入，交互
+
+            "linux": {
+                 "MIMode": "gdb"
+            },
+            "miDebuggerPath": "gdb",
+            "preLaunchTask": "shell"   //调试会话开始前执行的任务，一般为编译程序。与 tasks.json 的 label 一致
+        }
+    ]
+}

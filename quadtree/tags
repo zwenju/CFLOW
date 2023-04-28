@@ -1,0 +1,76 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC  = mpicc  $/;"	m
+CFLAGS	Makefile	/^CFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+CXX	Makefile	/^CXX = mpicxx $/;"	m
+EC	Makefile	/^EC  = mpif90 $/;"	m
+EXE	Makefile	/^EXE = zz $/;"	m
+FC	Makefile	/^FC  = mpif90 $/;"	m
+FFLAGS	Makefile	/^FFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+FLAGS	Makefile	/^FLAGS   =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+INCLUDES	Makefile	/^INCLUDES = -I$(loc_include_path) $(makefile_inc_includes)$/;"	m
+LIBS	Makefile	/^LIBS    =  -L$(loc_lib_path)     $(loc_lib) $(makefile_inc_libs)$/;"	m
+MAIN_OBJS	Makefile	/^MAIN_OBJS = mesh_quadtree_test.o \\$/;"	m
+Mesh_QuadTree_H	mesh_quadtree.f90	/^Module Mesh_QuadTree_H /;"	m
+OBJS	Makefile	/^OBJS = mesh_quadtree.o mesh_quadtree_free.o mesh_quadtree_init.o mesh_quadtree_level_refine.o mesh_quadtree_subdivide.o mesh_quadtree_write.o mesh_quadtree_write_py.o \\$/;"	m
+PREFIX	Makefile	/^PREFIX = $(HOME)\/Linux$/;"	m
+STATIC_LIB	Makefile	/^STATIC_LIB = libXXX.a$/;"	m
+SubElementList	mesh_quadtree.f90	/^     real(kind=8), allocatable :: SubElementList(/;"	k	type:mesh_quadtree_type
+SubElementNum	mesh_quadtree.f90	/^     integer (kind=4) :: SubElementNum$/;"	k	type:mesh_quadtree_type
+XY	mesh_quadtree.f90	/^     real(kind=8) :: XY(/;"	k	type:mesh_quadtree_type
+acommand_line_args	mesh_quadtree_plot.py	/^acommand_line_args = str(sys.argv[1])$/;"	v
+ax	mesh_quadtree_plot.py	/^	ax = fig.add_subplot (111)$/;"	v
+child1	mesh_quadtree.f90	/^     type (mesh_quadtree_type), pointer :: child1 /;"	k	type:mesh_quadtree_type
+child2	mesh_quadtree.f90	/^     type (mesh_quadtree_type), pointer :: child2 /;"	k	type:mesh_quadtree_type
+child3	mesh_quadtree.f90	/^     type (mesh_quadtree_type), pointer :: child3 /;"	k	type:mesh_quadtree_type
+child4	mesh_quadtree.f90	/^     type (mesh_quadtree_type), pointer :: child4 /;"	k	type:mesh_quadtree_type
+fig	mesh_quadtree_plot.py	/^	fig = plt.figure(1) $/;"	v
+fig_x_axis_size_inches	mesh_quadtree_plot.py	/^	fig_x_axis_size_inches = scale * ( max_x - min_x ) $/;"	v
+fig_y_axis_size_inches	mesh_quadtree_plot.py	/^	fig_y_axis_size_inches = scale * ( max_y - min_y )$/;"	v
+file_name	mesh_quadtree_test.f90	/^character (len=100) :: file_name /;"	v	program:main
+level_linker	mesh_quadtree.f90	/^     type (mesh_quadtree_type),pointer :: level_linker /;"	k	type:mesh_quadtree_type
+level_marker	mesh_quadtree.f90	/^     integer (kind=1) :: level_marker /;"	k	type:mesh_quadtree_type
+loc_include_path	Makefile	/^loc_include_path=$(loc_path)\/include$/;"	m
+loc_lib	Makefile	/^loc_lib = $/;"	m
+loc_lib_path	Makefile	/^loc_lib_path=$(loc_path)\/lib$/;"	m
+loc_path	Makefile	/^loc_path=..$/;"	m
+main	mesh_quadtree_test.f90	/^program main /;"	p
+math	mesh_quadtree_plot.py	/^import math $/;"	i
+matplotlib	mesh_quadtree_plot.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	mesh_quadtree_plot.py	/^import matplotlib.tri as tri $/;"	i
+max_x	mesh_quadtree_plot.py	/^	max_x =  np.amax( quadtree[:, [0,2]] , axis=0) $/;"	v
+max_y	mesh_quadtree_plot.py	/^	max_y =  np.amax( quadtree[:, [1,3]] , axis=0) $/;"	v
+mesh_file_name	mesh_quadtree_plot.py	/^mesh_file_name = acommand_line_args $/;"	v
+mesh_quadtree	mesh_quadtree_plot.py	/^	mesh_quadtree  = np.loadtxt( mesh_quadtree_file )$/;"	v
+mesh_quadtree_delete	mesh_quadtree_free.f90	/^subroutine mesh_quadtree_delete /;"	s
+mesh_quadtree_file	mesh_quadtree_plot.py	/^	mesh_quadtree_file = mesh_file_name + str(iLevel) + ".quadtree"$/;"	v
+mesh_quadtree_free	mesh_quadtree_free.f90	/^subroutine mesh_quadtree_free(/;"	s
+mesh_quadtree_init	mesh_quadtree_init.f90	/^subroutine mesh_quadtree_init(/;"	s
+mesh_quadtree_level_refine	mesh_quadtree_level_refine.f90	/^subroutine mesh_quadtree_level_refine /;"	s
+mesh_quadtree_root	mesh_quadtree.f90	/^  type (mesh_quadtree_type), pointer :: mesh_quadtree_root /;"	v	module:Mesh_QuadTree_H
+mesh_quadtree_subdivide	mesh_quadtree_subdivide.f90	/^subroutine mesh_quadtree_subdivide /;"	s
+mesh_quadtree_type	mesh_quadtree.f90	/^  type mesh_quadtree_type /;"	t	module:Mesh_QuadTree_H
+mesh_quadtree_write	mesh_quadtree_write.f90	/^subroutine mesh_quadtree_write /;"	s
+mesh_quadtree_write_py	mesh_quadtree_write_py.f90	/^subroutine mesh_quadtree_write_py /;"	s
+min_x	mesh_quadtree_plot.py	/^	min_x =  np.amin( quadtree[:, [0,2]] , axis=0) $/;"	v
+min_y	mesh_quadtree_plot.py	/^	min_y =  np.amin( quadtree[:, [1,3]] , axis=0) $/;"	v
+np	mesh_quadtree_plot.py	/^import numpy as np$/;"	i
+os	mesh_quadtree_plot.py	/^import os $/;"	i
+p	mesh_quadtree_test.f90	/^integer (kind=4), po/;"	v	program:main
+plt	mesh_quadtree_plot.py	/^import matplotlib.pyplot as plt$/;"	i
+quadtree	mesh_quadtree_plot.py	/^	quadtree = mesh_quadtree [:, 1:5]$/;"	v
+quadtree	mesh_quadtree_test.f90	/^type (mesh_quadtree_/;"	v	program:main
+quadtree_max_level	mesh_quadtree_plot.py	/^quadtree_max_level = str(sys.argv[2])$/;"	v
+scale	mesh_quadtree_plot.py	/^	scale = 8$/;"	v
+sys	mesh_quadtree_plot.py	/^import sys$/;"	i
+tri	mesh_quadtree_plot.py	/^import matplotlib.tri as tri $/;"	i
+x1	mesh_quadtree_plot.py	/^	    x1 = quadtree[i,0]$/;"	v
+x2	mesh_quadtree_plot.py	/^	    x2 = quadtree[i,2]$/;"	v
+xc	mesh_quadtree_plot.py	/^	    xc = (x1 + x2) \/ 2.0$/;"	v
+y1	mesh_quadtree_plot.py	/^	    y1 = quadtree[i,1]$/;"	v
+y2	mesh_quadtree_plot.py	/^	    y2 = quadtree[i,3]$/;"	v
+yc	mesh_quadtree_plot.py	/^	    yc = (y1 + y2) \/ 2.0$/;"	v

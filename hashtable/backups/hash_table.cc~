@@ -1,0 +1,50 @@
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+
+extern "C" {   
+void map_set_(int *loc_i, int *loc_j, int * dim_num);
+void  map_set_size_(int *non_zero_num);
+void map_set_sparse_index_set_(int *ia, int *ja, int *dim_num);
+
+}
+
+
+std::unordered_map <int, int> sparse_matrix_map;
+
+
+void map_set_(int *loc_i, int *loc_j, int * dim_num) {
+
+
+sparse_matrix_map.insert ( { (*loc_i) * *dim_num + *loc_j, *loc_j}  ); 
+
+cout << "i,j" <<  *loc_i * *dim_num + *loc_j <<" " << *loc_i << " "  << *loc_j << endl; 
+
+cout << "size = " << sparse_matrix_map.size() << endl ;
+}
+
+
+
+void  map_set_size_(int *non_zero_num) {
+
+*non_zero_num = sparse_matrix_map.size(); 
+
+}
+
+void map_set_sparse_index_set_(int *ia, int *ja, int *dim_num){
+long int i = 0;
+
+for (auto it = sparse_matrix_map.begin(); it != sparse_matrix_map.end(); ++it) {
+ 
+ia[i] = (it->first - it->second) / *dim_num;
+ja[i] = it->second;
+i = i + 1; 
+cout << "ii =- " << i << "ia[i] = " << ia[i] << " ja[i] " << ja[i]  << endl; 
+
+}
+
+sparse_matrix_map.clear(); 
+}
+
+

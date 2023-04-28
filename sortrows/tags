@@ -1,0 +1,42 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+A	i4_sortrows_test.f90	/^integer(kind=4),allocatable :: A /;"	v	program:i4_sortrows_test
+At	i4_sortrows_test.f90	/^integer(kind=4),allocatable :: A (:, :), At(/;"	v	program:i4_sortrows_test
+CC	Makefile	/^CC  = mpicc  $/;"	m
+CFLAGS	Makefile	/^CFLAGS  =  -fbounds-check -Wall -Wextra  -fexternal-blas$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -Wall -g -pg -O3$/;"	m
+CXX	Makefile	/^CXX = mpicxx $/;"	m
+EC	Makefile	/^EC  = mpif90 $/;"	m
+EXE	Makefile	/^EXE = zz $/;"	m
+FC	Makefile	/^FC  = mpif90 $/;"	m
+FFLAGS	Makefile	/^FFLAGS  =  -fbounds-check -Wall -Wextra  -fexternal-blas$/;"	m
+FFLAGS	Makefile	/^FFLAGS = -Wall -g -pg -O3$/;"	m
+FLAGS	Makefile	/^FLAGS   =  -fbounds-check -Wall -Wextra  -fexternal-blas$/;"	m
+FLAGS	Makefile	/^FLAGS  = -Wall -g -pg -O3$/;"	m
+INCLUDES	Makefile	/^INCLUDES = $/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+OBJS	Makefile	/^OBJS = i4_sortrows_test.o \\$/;"	m
+PREFIX	Makefile	/^PREFIX = $(HOME)\/Linux$/;"	m
+STATIC_LIB	Makefile	/^STATIC_LIB = libXXX.a$/;"	m
+_SORTROWS_H_	sort.h	2;"	d
+_SORTROWS_H_	sortrows.h	2;"	d
+compare	qsort_STL_test.c	/^int compare (const void * a, const void * b)$/;"	f
+i4_compare_n	i4_sortrows.c	/^int i4_compare_n(const void *p1, const void *p2, void *nsize)$/;"	f
+i4_compare_reverse_n	i4_sortrows_reverse.c	/^int i4_compare_reverse_n(const void *p1, const void *p2, void *nsize)$/;"	f
+i4_sortrows_	i4_sortrows.c	/^void i4_sortrows_(int *base, int *nmemb,  int *nsize) $/;"	f
+i4_sortrows_reverse_	i4_sortrows_reverse.c	/^void i4_sortrows_reverse_ (int *base, int *nmemb,  int *nsize) $/;"	f
+i4_sortrows_test	i4_sortrows_test.f90	/^program i4_sortrows_test$/;"	p
+i4_unique_rows	i4_unique_rows.c	/^void  i4_unique_rows (const int *base, const int *nmemb, int *nsize, int *unique_num)$/;"	f
+i4_unique_sortrows_	i4_sortrows.c	/^void i4_unique_sortrows_(int *base, int *nmemb,  int *nsize, int *unique_num)  $/;"	f
+i4_unique_sortrows_reverse_	i4_sortrows_reverse.c	/^void i4_unique_sortrows_reverse_(int *base, int *nmemb,  int *nsize, int *unique_num)  $/;"	f
+i4_write	i4_sortrows.c	/^void  i4_write (int *base, int *nmemb, int *nsize) $/;"	f
+i4_write_matrix	i4_sortrows_test.f90	/^subroutine i4_write_matrix /;"	s
+main	qsort_STL_test.c	/^int main ()$/;"	f
+nmemb	i4_sortrows_test.f90	/^integer(kind=4) :: nmemb,/;"	v	program:i4_sortrows_test
+nsize	i4_sortrows_test.f90	/^integer(kind=4) :: nmemb, nsize,/;"	v	program:i4_sortrows_test
+unique_num	i4_sortrows_test.f90	/^integer(kind=4) :: nmemb, nsize, unique_num$/;"	v	program:i4_sortrows_test
+values	qsort_STL_test.c	/^int values[] = { 40, 10, 100, 90, 20, 25 };$/;"	v

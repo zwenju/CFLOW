@@ -1,0 +1,90 @@
+subroutine csc_submatrix_location_index( sparse_matrix, sub_rows_indx, sub_rows_n, sub_cols_indx, sub_cols_n, sindx )
+  use Sparse_Matrix_Type_H 
+  implicit none
+
+  type (sparse_matrix_type) :: sparse_matrix  
+  integer (kind=4),intent (in) :: sub_rows_n, sub_cols_n
+  integer (kind=4),intent (in) :: sub_rows_indx(sub_rows_n), sub_cols_indx (sub_cols_n)
+  integer (kind=4),intent (out):: sindx (sub_rows_n, sub_cols_n)
+  integer (kind=4) :: indx_ordered (sub_rows_n)
+  integer (kind=4) :: icol, irow, i_row_indx,  s1, s2,  k 
+  !!
+  !! set index_ordered as an ordered sequence, e.g., [1,2,3,4, ....]
+  !! 
+  indx_ordered = [ ( irow, irow = 1, sub_rows_n ) ]
+  sindx = 0
+  !!
+  !! using the sub_rows_indx to sort ordered_index array 
+  !!
+  call csc_insert_sort(sub_rows_n, sub_rows_indx, indx_ordered)
+
+  !!
+  !! first do the loop for the columns 
+  !!
+  loop_cols : do icol = 1, sub_cols_n 
+
+     !!
+     !! get the sparse matrix's  icol-th entities's locations  
+     !!
+     s1 = sparse_matrix % csc_col_ptr ( scols_indx(icol) ) 
+     s2 = sparse_matrix % csc_col_ptr ( scols_indx(icol)+1 ) - 1
+     !!
+     !! loop each columns, the complexity is O(n)
+     !! 
+     loop_rows :  do irow = 1, sub_rows_n 
+
+        !!
+        !!  k , s1, s2 are the address of the array in the memroy 
+        !!
+        loop_inner_row :  do k = s1, s2 
+
+           !!
+           !! to check the rows indx 
+           !!
+
+           i_row_indx = sub_rows_indx ( indx_ordered (irow) )  
+           if  ( i_row_indx ==  sparse_matrix%IA(k) ) then 
+
+              sidx ( indx_ordered (irow) , icol ) = k
+              s1 = k + 1 
+              exit 
+
+           endif
+
+        enddo loop_inner_row
+
+     enddo loop_rows
+
+  enddo loop_cols
+
+
+  return 
+end subroutine csc_sparse_submatrix_location_indx
+
+
+
+
+subroutine csc_insert_sort(n, arr, idx)
+!!$ ****************************************************
+!!$ the order of arr has not changed 
+!!$ just change the order of idx based on the arr order
+!!$ *****************************************************
+  implicit none 
+  integer(kind=4), intent(in) :: n 
+  integer(kind=4), intent(in) :: arr(n)
+  integer(kind=4), intent(out):: idx(n)
+  integer(kind=4) :: i, j, ia, ib 
+
+  do i = 2, n
+     j = i - 1
+     ia = arr(idx(i)) 
+     ib = idx(i)
+     do while ( j>= 1 .and. arr( idx(j) ) > ia )
+        idx(j+1) = idx(j) 
+        j = j - 1
+     enddo
+     idx(j + 1) = ib 
+  end do
+
+  return   
+end subroutine csc_insert_sort

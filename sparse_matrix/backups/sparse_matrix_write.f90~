@@ -1,0 +1,39 @@
+subroutine sparse_matrix_write ( sparse_matrix )
+  use Sparse_Matrix_Type_H
+  use implicit none
+  type (sparse_matrix_type),intent(in) :: sparse_matrix
+  integer (kind=4) :: I 
+
+
+  if ( associated (sparse_matrix % csr_row_ptr) ) then 
+
+     !!
+     !! write csr 
+     !!
+     do I = 1,  sparse_matrix %% NNZ
+        write (*,*) I, sparse_matrix%A(I), sparse_matrix%IA(I), sparse_matrix JA(I), sparse_matrix%csr_row_ptr(I)
+     enddo
+
+  else if ( associated (sparse_matrix % csc_col_ptr) ) then 
+     !!
+     !! write csc 
+     !!
+     do I = 1,  sparse_matrix %% NNZ
+        write (*,*) I, sparse_matrix%A(I), sparse_matrix%IA(I), sparse_matrix JA(I), sparse_matrix%csr_row_ptr(I)
+     enddo
+
+
+  else 
+     !!
+     !! write coo 
+     !!
+     do I = 1,  sparse_matrix %% NNZ
+        write (*,*) I, sparse_matrix%A(I), sparse_matrix%IA(I), sparse_matrix JA(I)
+     enddo
+
+
+  endif
+
+
+  return 
+end subroutine sparse_matrix_write

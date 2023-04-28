@@ -1,0 +1,32 @@
+Date  : 03/08/2017
+Author : Wenju Zhao 
+Email : zwenju@outlook.com 
+
+
+This codes call the qsort_r/qsort functions to do the matrix sorts based on the rows
+
+********************************************************************************
+i4 represents the int for C/C++ and integer(kind=4) for fortran 
+1:
+i4_sortrows.c  is the same as the matlab sortrows
+the rows are sorted based on the entities from lift to right 
+
+2:
+i4_unique_sortrows.c  is the same as the matlab sortrows and unique functions
+the rows are sorted based on the entities from left to right
+only return the unique rows from top to bottom,  the bottom parts are assigned to be zeros 
+
+
+
+3:
+i4_sortrows_reverse.c  is the same as the matlab sortrows
+the rows are sorted based on the entities from right to left
+
+4:
+i4_unique_sortrows_reverse.c  is the same as the matlab sortrows and unique functions
+the rows are sorted based on the entities from right to left
+only return the unique rows from top to bottom,  the bottom parts are assigned to be zeros 
+**************************************************************************************
+
+
+

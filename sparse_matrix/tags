@@ -1,0 +1,43 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	A_Sparse_Matrix_Type_H.f90	/^     real(kind=8), dimension(:), pointer :: A$/;"	k	type:sparse_matrix_type
+CC	Makefile	/^CC  = mpicc  $/;"	m
+CFLAGS	Makefile	/^CFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+CXX	Makefile	/^CXX = mpicxx $/;"	m
+DimNum	A_Sparse_Matrix_Type_H.f90	/^     integer(kind=4)::DimNum$/;"	k	type:sparse_matrix_type
+EC	Makefile	/^EC  = mpif90 $/;"	m
+EXE	Makefile	/^EXE = zz $/;"	m
+FC	Makefile	/^FC  = mpif90 $/;"	m
+FFLAGS	Makefile	/^FFLAGS  =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+FLAGS	Makefile	/^FLAGS   =  -fbounds-check -Wall -Wextra -g -g3 -finit-local-zero  -fexternal-blas$/;"	m
+IA	A_Sparse_Matrix_Type_H.f90	/^     integer(kind=4), dimension(:), pointer :: IA(/;"	k	type:sparse_matrix_type
+INCLUDES	Makefile	/^INCLUDES = -I$(loc_include_path) $(makefile_inc_includes)$/;"	m
+JA	A_Sparse_Matrix_Type_H.f90	/^     integer(kind=4), dimension(:), pointer :: JA(/;"	k	type:sparse_matrix_type
+LIBS	Makefile	/^LIBS    =  -L$(loc_lib_path)     $(loc_lib) $(makefile_inc_libs)$/;"	m
+MAIN_OBJS	Makefile	/^MAIN_OBJS = \\$/;"	m
+MAX_NNZ	A_Sparse_Matrix_Type_H.f90	/^     integer(kind=4):: MAX_NNZ /;"	k	type:sparse_matrix_type
+NNZ	A_Sparse_Matrix_Type_H.f90	/^     integer(kind=4)::NNZ$/;"	k	type:sparse_matrix_type
+OBJS	Makefile	/^OBJS = A_Sparse_Matrix_Type_H.o coo_to_csc_col_ptr.o coo_to_csr_row_ptr.o csc_submatrix_location_idx.o csr_submatrix_location_idx.o csr_submatrix_location_idx_unordered.o sparse_matrix_free.o sparse_matrix_write.o \\$/;"	m
+PREFIX	Makefile	/^PREFIX = $(HOME)\/Linux$/;"	m
+STATIC_LIB	Makefile	/^STATIC_LIB = libXXX.a$/;"	m
+Sparse_Matrix_Type_H	A_Sparse_Matrix_Type_H.f90	/^module Sparse_Matrix_Type_H /;"	m
+coo_to_csc_col_ptr	coo_to_csc_col_ptr.f90	/^subroutine coo_to_csc_col_ptr /;"	s
+coo_to_csr_row_ptr	coo_to_csr_row_ptr.f90	/^subroutine coo_to_csr_row_ptr /;"	s
+csc_col_ptr	A_Sparse_Matrix_Type_H.f90	/^     integer(kind=4), dimension(:), pointer :: csc_col_ptr(/;"	k	type:sparse_matrix_type
+csc_insert_sort	csc_submatrix_location_idx.f90	/^subroutine csc_insert_sort(/;"	s
+csc_submatrix_location_idx	csc_submatrix_location_idx.f90	/^subroutine csc_submatrix_location_idx(/;"	s
+csr_insert_sort	csr_submatrix_location_idx.f90	/^subroutine csr_insert_sort(/;"	s
+csr_row_ptr	A_Sparse_Matrix_Type_H.f90	/^     integer(kind=4), dimension(:), pointer :: csr_row_ptr(/;"	k	type:sparse_matrix_type
+csr_submatrix_location_idx	csr_submatrix_location_idx.f90	/^subroutine csr_submatrix_location_idx(/;"	s
+csr_submatrix_location_idx_unordered	csr_submatrix_location_idx_unordered.f90	/^subroutine csr_submatrix_location_idx_unordered(/;"	s
+loc_include_path	Makefile	/^loc_include_path=$(loc_path)\/include$/;"	m
+loc_lib	Makefile	/^loc_lib = $/;"	m
+loc_lib_path	Makefile	/^loc_lib_path=$(loc_path)\/lib$/;"	m
+loc_path	Makefile	/^loc_path=..$/;"	m
+sparse_matrix_free	sparse_matrix_free.f90	/^  subroutine sparse_matrix_free /;"	s
+sparse_matrix_type	A_Sparse_Matrix_Type_H.f90	/^  type ::  sparse_matrix_type$/;"	t	module:Sparse_Matrix_Type_H
+sparse_matrix_write	sparse_matrix_write.f90	/^subroutine sparse_matrix_write /;"	s

@@ -1,0 +1,81 @@
+!subroutine mumps_solver(aij, ia,ja,NonZeroNum, DimNum, FX)
+subroutine mumps_init(JOB_ID)
+!!>=======================================================
+!! job =1 perform the analysis
+!! job=2 perform the factorization
+!! job=3 compute the solution
+!! job=4 combine the actions of job=1 and job=2
+!! job=5 combine the actions of job=2 and job=3
+!! job=6 combine the actions of job=1,2,3
+use globalInfo  
+use SparseInfo  
+use mumpsModuleInfo
+implicit none
+integer(kind=4)::IERR, I
+integer(kind=4):: JOB_ID 
+
+mumps_par%COMM = MPI_COMM_SELF
+mumps_par%SYM = 0
+mumps_par%PAR = 1
+mumps_par%JOB = -1
+CALL DMUMPS(mumps_par)
+
+IF ( mumps_par%MYID .eq. 0 ) THEN
+     mumps_par%N = DimNum 
+     mumps_par%NZ = NonZeroNum 
+     mumps_par%IRN => ia
+     mumps_par%JCN => ja 
+     mumps_par%A => Aij 
+END IF
+
+ mumps_par%ICNTL(1) = -1 
+ mumps_par%ICNTL(2) = -1
+ mumps_par%ICNTL(3) = -1
+ mumps_par%ICNTL(4) = 0 !-1
+ mumps_par%ICNTL(7) = 5 
+ !mumps_par%ICNTL(23) = 512
+  !Call package for solution
+ mumps_par%JOB = JOB_ID 
+      CALL DMUMPS(mumps_par)
+  !Destroy the instance (deallocate internal data structures)
+
+end subroutine 
+
+
+subroutine mumps_solver(FX, JOB_ID)
+use globalInfo  
+use SparseInfo  
+use MumpsModuleInfo
+IMPLICIT NONE
+!include 'mpif.h'
+!include 'dmumps_struc.h'
+!TYPE (DMUMPS_STRUC) mumps_par
+integer(kind=4)::IERR, I
+integer(kind=4)::JOB_ID 
+real(kind=8),target::FX(DimNum)
+
+      IF ( mumps_par%MYID .eq. 0 ) THEN
+         mumps_par%N = DimNum 
+         mumps_par%NZ = NonZeroNum 
+         mumps_par%IRN => ia
+         mumps_par%JCN => ja 
+         mumps_par%A => Aij 
+         mumps_par%RHS => FX 
+      END IF
+!Call package for solution
+      mumps_par%JOB = JOB_ID
+      CALL DMUMPS(mumps_par)
+return       
+end subroutine 
+
+
+!Destroy the instance (deallocate internal data structures)
+subroutine mumps_free()
+use MumpsModuleInfo
+implicit none 
+ mumps_par%JOB = -2
+ call  DMUMPS(mumps_par)
+
+end subroutine 
+
+
