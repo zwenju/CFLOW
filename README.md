@@ -15,7 +15,7 @@ stochastic Navier-Stokes equations constrained Stochastic Optimal Control proble
 
 [A generalized finite element θ-scheme for backward stochastic partial differential equations and its error estimates
 Sun, Yongwang; Zhao, Weidong; Zhao, Wenju . ESAIM Math. Model. Numer. Anal. 58 (2024), no. 1, 23–46. 65M60]
-(	https://doi.org/10.1051/m2an/2023100)
+(https://doi.org/10.1051/m2an/2023100)
 
 [Stochastic Collocation Method for Stochastic Optimal Boundary Control of the Navier–Stokes Equations
 W Zhao, M Gunzburger
